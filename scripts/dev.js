@@ -1,12 +1,25 @@
 import concurrently from 'concurrently';
 import net from 'node:net';
 
-function isPortAvailable(port) {
+function testListen(port, host) {
   return new Promise(resolve => {
     const server = net.createServer();
     server.once('error', () => resolve(false));
-    server.listen(port, '127.0.0.1', () => server.close(() => resolve(true)));
+    try {
+      server.listen(port, host, () => server.close(() => resolve(true)));
+    } catch {
+      resolve(false);
+    }
   });
+}
+
+async function isPortAvailable(port) {
+  const [ipv4, ipv6, localhost] = await Promise.all([
+    testListen(port, '0.0.0.0'),
+    testListen(port, '::'),
+    testListen(port, '127.0.0.1')
+  ]);
+  return ipv4 && ipv6 && localhost;
 }
 
 async function findPort(start) {
