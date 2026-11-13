@@ -15,9 +15,11 @@
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
-    "prisma": "^6.19.3"
+    "prisma": "^7.10.1"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.3"
+    "@prisma/client": "^6.19.3",
+    "cloudinary": "^2.11.0",
+    "multer": "^2.5.0"
   }
 }
