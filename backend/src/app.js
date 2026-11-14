@@ -2,7 +2,7 @@ import express from 'express'; import helmet from 'helmet'; import cors from 'co
 import { config } from './config.js'; import { hashPassword,checkPassword,issueToken,verifyToken } from './auth.js'; import { openStream,publish } from './notify.js';
 export const prisma=new PrismaClient(); export const app=express();
 const root=path.resolve(config.UPLOAD_DIR); await fs.mkdir(root,{recursive:true});
-app.disable('x-powered-by'); app.use(helmet()); app.use(cors({origin:config.CLIENT_URL,credentials:false})); app.use(express.json({limit:'32kb'}));
+app.disable('x-powered-by'); app.set('trust proxy',1); app.use(helmet()); app.use(cors({origin:config.CLIENT_URL,credentials:false})); app.use(express.json({limit:'32kb'}));
 const authLimit=rateLimit({windowMs:15*60*1000,limit:30,standardHeaders:true,legacyHeaders:false});
 const safeUser=({id,name,email,role,createdAt})=>({id,name,email,role,createdAt});
 const wrap=fn=>(req,res,next)=>Promise.resolve(fn(req,res,next)).catch(next);

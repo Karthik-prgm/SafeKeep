@@ -8,12 +8,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+enum Role {\n  USER\n  ADMIN\n}\n\nmodel User {
   id            String         @id @default(cuid())
   name          String
   email         String         @unique
   passwordHash  String
-  role          String         @default("USER")
+  role          Role           @default(USER)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   documents     Document[]
