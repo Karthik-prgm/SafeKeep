@@ -30,13 +30,13 @@ npm --prefix backend install
 npm --prefix frontend install
 ```
 
-Create `backend/.env` from `backend/.env.example`. Set `DATABASE_URL` (defaults to `file:./dev.db` for SQLite) and generate a random `JWT_ACCESS_SECRET` with at least 32 characters. Adjust `CLIENT_URL`, `UPLOAD_DIR`, and `MAX_FILE_SIZE_MB` as needed. The API validates required configuration at startup.
+Create `backend/.env` from `backend/.env.example`. Set `DATABASE_URL` to a PostgreSQL connection URL and generate a random `JWT_ACCESS_SECRET` with at least 32 characters. Adjust `CLIENT_URL`, `UPLOAD_DIR`, and `MAX_FILE_SIZE_MB` as needed. The API validates required configuration at startup.
 
-Generate Prisma and sync the database from the `database/` schema:
+Generate Prisma and apply the database migrations from the `database/` schema:
 
 ```sh
 npm run db:generate
-npm run db:push
+npm --prefix backend run db:deploy
 ```
 
 Run both development servers:
@@ -91,3 +91,4 @@ Run `npm test`. Backend test files use Node's test runner; frontend uses Vitest.
 - **CORS errors:** make `CLIENT_URL` exactly match the browser origin.
 - **Upload rejected:** use PDF, JPEG, PNG, DOCX, or XLSX under the configured size limit.
 - **Session ends after refresh:** access tokens are intentionally memory-only; sign in again (refresh flow is an explicit follow-up).
+
