@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "start": "prisma migrate deploy --schema ../database/prisma/schema.prisma && node src/server.js",
     "test": "node --test",
     "db:generate": "prisma generate --schema ../database/prisma/schema.prisma",
+    "db:deploy": "prisma migrate deploy --schema ../database/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema ../database/prisma/schema.prisma",
     "db:push": "prisma db push --schema ../database/prisma/schema.prisma"
   },
@@ -27,3 +28,4 @@
     "supertest": "^7.0.0"
   }
 }
+
