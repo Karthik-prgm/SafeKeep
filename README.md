@@ -92,3 +92,4 @@ Run `npm test`. Backend test files use Node's test runner; frontend uses Vitest.
 - **Upload rejected:** use PDF, JPEG, PNG, DOCX, or XLSX under the configured size limit.
 - **Session ends after refresh:** access tokens are intentionally memory-only; sign in again (refresh flow is an explicit follow-up).
 
+<!-- CI/CD pipeline verification -->
